@@ -6,11 +6,11 @@ Thing.destroy_all
 end
 
 Cat.destroy_all
-100.times do
+100.times do |i|
   name = Faker::Creature::Cat.name
   breed = Faker::Creature::Cat.breed
   registry = Faker::Creature::Cat.registry
-  avatar = Faker::Avatar.image(slug: name, size: "100x400", format: "png", set: "set4")
+  avatar = Faker::Avatar.image(slug: "#{name}#{i}", size: "100x400", format: "png", set: "set4")
 
   Cat.create(name: name, breed: breed, registry: registry, avatar: avatar)
 end

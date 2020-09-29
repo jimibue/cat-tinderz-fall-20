@@ -6,7 +6,15 @@ import { useAxiosOnMount } from "../customHooks/useAxiosOnMount";
 
 const Home = () => {
   // useState return an array => [getter, setter]
-  const [cats, setCats] = useState([]);
+
+  const [
+    { data: cats, loading, error, setData: setCats },
+    refetch,
+  ] = useAxiosOnMount({
+    url: "/api/cats",
+    type: "get",
+  });
+
   const upVote = async (id) => {
     let res = axios.put(`/api/cats/${id}`);
 
@@ -19,20 +27,20 @@ const Home = () => {
     setCats(filteredCats);
   };
 
-  const getCats = async () => {
-    try {
-      let res = await axios.get("/api/cats");
-      console.log(res.data);
-      setCats(res.data);
-    } catch (err) {
-      console.log(err.response);
-      alert("error get cats");
-    }
-  };
+  // const getCats = async () => {
+  //   try {
+  //     let res = await axios.get("/api/cats");
+  //     console.log(res.data);
+  //     setCats(res.data);
+  //   } catch (err) {
+  //     console.log(err.response);
+  //     alert("error get cats");
+  //   }
+  // };
 
-  useEffect(() => {
-    getCats();
-  }, []);
+  // useEffect(() => {
+  //   getCats();
+  // }, []);
 
   const sample = () => {
     if (cats.length === 0) {
